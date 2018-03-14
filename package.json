@@ -18,8 +18,12 @@
     "morgan": "~1.9.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
+    "nodemon": "^1.17.2",
     "sequelize": "^4.36.1",
     "sequelize-cli": "^4.0.0",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.2"
   }
 }

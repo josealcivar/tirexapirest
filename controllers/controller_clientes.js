@@ -11,12 +11,12 @@ var modelo = require('../models');
 
 const ObtenerClientes = (req, res, next) => {
 
-  //  var clienteid = req.params.id;
+  var vendedor = req.params.id;
   //  var vendedor = 1;
     modelo.Cliente.findAll({
-  //    where: {
-    //    id:clienteid
-  //    }
+      where: {
+      VendedorId:vendedor
+      }
 
     }).then(clientes => {
         const respuesta = clientes.map(cliente => {

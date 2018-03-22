@@ -16,6 +16,6 @@ var router = express.Router();
 //API
 
 /* GET home page. */
-router.get('/:id', controlador.ObtenerClientes);
+router.get('/', controlador.ObtenerClientes);
 
 module.exports = router;

@@ -27,16 +27,13 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING,
       allowNull : true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      //   Vendedor.hasMany(models.Cliente);
-        //Vendedor.belongsTo(models.Empresa);
-      }
-    }
+  }, {});
 
-  });
+  Vendedor.associate = function(models) {
+    // associations can be defined here
+    Vendedor.belongsTo(models.Empresa);
+
+  };
   return Vendedor;
 
 };

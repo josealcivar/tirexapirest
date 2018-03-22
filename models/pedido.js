@@ -7,8 +7,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Pedido = sequelize.define('Pedido', {
+    id:{
+      type: DataTypes.INTEGER,
+       primaryKey: true,
+      allowNull:false
+    },
     fecha: {
       type : DataTypes.DATE,
+      primaryKey: true,
       allowNull : true
     },
     subtotal: {
@@ -19,9 +25,9 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.DECIMAL(10,4),
       allowNull : true
     },
-    porcdescto: {
+    porcdesct: {
       type : DataTypes.DECIMAL(2,2),
-      allowNull : false,
+      allowNull : true,
       /*validate : {
         isIn : ['activo', 'inactivo' ]
       }*/
@@ -34,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.DECIMAL(10,4),
       allowNull : true
     },
-    orden_pedido: {
+    estado_orden: {
       type : DataTypes.STRING(1),
       allowNull : false
     },
@@ -42,15 +48,21 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-         Pedido.belongsTo(models.Empresa);
-      }
-    }
+  }, {});
 
-  });
+  Pedido.associate = function(models) {
+    // associations can be defined here
+     Pedido.belongsTo(models.Vendedor);
+     Pedido.belongsTo(models.Cliente);
+     Pedido.belongsTo(models.Empresa);
+     Pedido.hasMany(models.Det_pedido, {
+        foreignKey: {
+          primaryKey: true
+        }
+     });
+
+  }
+
   return Pedido;
 
 };

@@ -6,9 +6,9 @@
 */
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Empresa = sequelize.define('Empresa', {
+  var Marca = sequelize.define('Marca', {
 
-    razonsocial: {
+    descripcion: {
       type : DataTypes.STRING,
       allowNull : false
     },
@@ -16,13 +16,14 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  },{});
+  }, {});
 
-  Empresa.associate = function(models) {
+  Marca.associate = function(models) {
     // associations can be defined here
+     Marca.hasMany(models.Producto);
 
-  }
+  };
 
-  return Empresa;
+  return Marca;
 
 };

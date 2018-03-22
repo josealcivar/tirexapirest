@@ -3,6 +3,7 @@
 @Autor: Jose Alcivar
 @FechaCreacion: 16/03/2018
 */
+'use strict';
 
 var modelo = require('../models');
 
@@ -12,7 +13,7 @@ const ObtenerClientes = (req, res, next) => {
 
   //  var clienteid = req.params.id;
   //  var vendedor = 1;
-    modelo.Comentario.findAll({
+    modelo.Cliente.findAll({
   //    where: {
     //    id:clienteid
   //    }
@@ -21,25 +22,29 @@ const ObtenerClientes = (req, res, next) => {
         const respuesta = clientes.map(cliente => {
 
             return Object.assign({}, {
-              //  clienteid: cliente.id,
-            //    codigointerno: cliente.codigointerno,
-                comentario: promo.comentario,
-            //    razonsocial: cliente.razonsocial,
-            //    identificacion: cliente.identificacion,
-            //    email: cliente.email,
-            //    direccion: cliente.direccion,
-            //    telefono: cliente.telefono,
-            //    tipoprecio: cliente.tipoprecio,
+                clienteid: cliente.id,
+                codigointerno: cliente.codigointerno,
+                razonsocial: cliente.razonsocial,
+                identificacion: cliente.identificacion,
+                email: cliente.email,
+                direccion: cliente.direccion,
+                telefono: cliente.telefono,
+                tipoprecio: cliente.tipoprecio,
                 estado: cliente.estado
             });
         });
-          console.log(respuesta);
-        //  return 1;
+
+         if(respuesta.length == 0){
+           console.log("No existen datos");
+
+         }
+
+
           return res.json(respuesta);
 
     }).catch(error => {
-      console.log("algo paso aqui");
-        var status = false;
+
+       var status = false;
         var mensaje = 'No se obtuvieron cliente'
         var jsonRespuesta = {
             status: status,

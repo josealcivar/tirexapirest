@@ -6,23 +6,27 @@
 */
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Empresa = sequelize.define('Empresa', {
-
-    razonsocial: {
+  var Promocion = sequelize.define('Promocion', {
+    comentario: {
       type : DataTypes.STRING,
+      allowNull : false
+    },
+    fecha: {
+      type : DataTypes.DATE,
       allowNull : false
     },
     estado: {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  },{});
+  }, {});
 
-  Empresa.associate = function(models) {
+  Promocion.associate = function(models) {
     // associations can be defined here
+     Promocion.belongsTo(models.Empresa);
 
-  }
+  };
 
-  return Empresa;
+  return Promocion;
 
 };

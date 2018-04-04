@@ -1,5 +1,5 @@
 /*
-@Descripcion: Modelo de procariano
+@Descripcion: Modelo de vendedor
 @Autor: jose viteri
 @FechaCreacion: 20/05/2017
 @UltimaFechaModificacion: 03/06/2017 @JoseViteri
@@ -27,7 +27,22 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING,
       allowNull : true
     }
-  }, {});
+  }, {
+    buscarUsuario: function(ll_usuario, success, err){
+      this.findOne({
+        where:{
+          usuario: ll_usuario
+        }
+      }).then(success).catch(err);
+    },
+    buscarPassword: function(ll_password, success, err){
+      this.findOne({
+        where:{
+          contrasena: ll_password
+        }
+      }).then(success).catch(err);
+    }
+  });
 
   Vendedor.associate = function(models) {
     // associations can be defined here

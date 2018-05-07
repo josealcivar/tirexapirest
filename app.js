@@ -6,9 +6,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
 
+var passport = require('passport');
+var expressSession = require('express-session');
+var flash         = require('connect-flash');
+
+
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var clientes = require('./routes/clientes.api.router');
+var productos = require('./routes/productos.api.router');
 
 var app = express();
 
@@ -26,6 +33,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', clientes);
 app.use('/users', users);
+app.use('/productosdestacados', productos);
+
+
+
+
+app.use(expressSession({
+  secret: 'mySecretKey',
+  saveUninitialized: true,
+  resave:true
+}));
+
+// passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(flash());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

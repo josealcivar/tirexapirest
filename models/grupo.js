@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Grupo.associate = function(models) {
     // associations can be defined here
-     Grupo.hasMany(models.Producto);
+  //   Grupo.hasMany(models.Producto);
 
   };
 

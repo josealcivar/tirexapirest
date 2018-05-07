@@ -9,28 +9,25 @@ var modelo = require('../models');
 
 
 
-const ObtenerClientes = (req, res, next) => {
+const ObtenercorreoVend = (req, res, next) => {
 
-  var vendedor = req.params.id;
+  var vendedor = req.body.correo;
   //  var vendedor = 1;
-    modelo.Cliente.findAll({
+    modelo.Vendedor.findAll({
       where: {
-      VendedorId:vendedor
+      usuario: vendedor
       }
 
-    }).then(clientes => {
-        const respuesta = clientes.map(cliente => {
+    }).then(vendedors => {
+        const respuesta = vendedors.map(vendedor => {
 
             return Object.assign({}, {
-                clienteid: cliente.id,
-                codigointerno: cliente.codigointerno,
-                razonsocial: cliente.razonsocial,
-                identificacion: cliente.identificacion,
-                email: cliente.email,
-                direccion: cliente.direccion,
-                telefono: cliente.telefono,
-                tipoprecio: cliente.tipoprecio,
-                estado: cliente.estado
+                vendedorid: vendedor.id,
+                codigointerno: vendedor.codigointerno,
+                nombre: vendedor.nombre,
+                usuario: vendedor.usuario,
+                contrasena: vendedor.contrasena,
+                estado: vendedor.estado
             });
         });
 
@@ -39,13 +36,13 @@ const ObtenerClientes = (req, res, next) => {
 
          }
 
-
+          console.log(respuesta);
           return res.json(respuesta);
 
     }).catch(error => {
 
        var status = false;
-        var mensaje = 'No se obtuvieron cliente'
+        var mensaje = 'No se obtuvo datos de vendedor'
         var jsonRespuesta = {
             status: status,
             mensaje: mensaje,
@@ -57,5 +54,5 @@ const ObtenerClientes = (req, res, next) => {
 };
 
 module.exports = {
-    ObtenerClientes
+    ObtenercorreoVend
 }

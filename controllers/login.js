@@ -6,7 +6,7 @@
 'use strict';
 var
 var modelo = require('../models');
-var llogin
+
 
 
 const loginIn = (req, res, next) => {

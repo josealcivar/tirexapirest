@@ -28,19 +28,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : true
     }
   }, {
-    buscarUsuario: function(ll_usuario, success, err){
+    buscarUsuario: function(ll_usuario){
       this.findOne({
         where:{
           usuario: ll_usuario
         }
-      }).then(success).catch(err);
-    },
-    buscarPassword: function(ll_password, success, err){
-      this.findOne({
-        where:{
-          contrasena: ll_password
-        }
-      }).then(success).catch(err);
+      }).then(true).catch('hola');
     }
   });
 

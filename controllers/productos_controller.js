@@ -52,7 +52,7 @@ const ProductosDestacados = (req, res, next) => {
     }).catch(error => {
 
        var status = false;
-        var mensaje = 'No se obtuvieron producto'
+        var mensaje = 'No se obtuvieron producto';
         var jsonRespuesta = {
             status: status,
             mensaje: mensaje,
@@ -69,10 +69,12 @@ const ProductosDestacados = (req, res, next) => {
 */
 const ProductosConsultados = (req, res, next) => {
 
-  var ll_estado = "A";
+
+    var ll_estado = "A";
     console.log(ll_estado);
-    var ll_busqueda = req.body.searchItem;
-    console.log(llrazon);
+    let ll_busqueda = req.params.searchItem;
+
+    console.log(ll_busqueda);
     modelo.Producto.findAll({
       include: [{
           model: modelo.Marca
@@ -117,7 +119,7 @@ const ProductosConsultados = (req, res, next) => {
     }).catch(error => {
 
        var status = false;
-        var mensaje = 'No se obtuvieron producto'
+        var mensaje = 'No se obtuvieron producto';
         var jsonRespuesta = {
             status: status,
             mensaje: mensaje,

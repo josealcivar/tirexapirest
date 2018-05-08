@@ -31,9 +31,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*
+  parte inicial de la ruta
+  
+*/
 app.use('/', clientes);
 app.use('/users', users);
-app.use('/productosdestacados', productos);
+app.use('/productos', productos);
 
 
 

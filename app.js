@@ -33,11 +33,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /*
   parte inicial de la ruta
-  
+
 */
 app.use('/', clientes);
 app.use('/users', users);
 app.use('/productos', productos);
+app.use('/clientes', clientes);
 
 
 

@@ -10,7 +10,7 @@
 'use strict';
 
 var controlador = require('../controllers/controller_clientes');
-var vendedor = require('../controllers/vendedor_controller');
+
 var models = require('../models').Vendedor;
 var express = require('express');
 var router = express.Router();
@@ -18,6 +18,12 @@ var router = express.Router();
 //API
 
 /* GET home page. */
-router.get('/clientes/:id', controlador.ObtenerClientes);
-router.get('/', vendedor.ObtenercorreoVend);
+router.get('/all/:vend_id', controlador.GetClientSeller);
+
+/*
+@Descripcion: se obtiene un solo cliente
+*/
+
+router.get('/:id', controlador.cliente_x_id);
+
 module.exports = router;

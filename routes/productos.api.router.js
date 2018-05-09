@@ -15,7 +15,7 @@ var router = express.Router();
 //API
 
 /* GET home page. */
-router.get('/', controlador.ProductosDestacados);
+router.get('/destacados/', controlador.ProductosDestacados);
 //router.get('/', controlador.ProductosDestacados);
 /*GET productos de busqueda*/
 router.get('/busqueda/:searchItem', controlador.ProductosConsultados);

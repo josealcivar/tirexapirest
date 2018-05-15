@@ -17,7 +17,8 @@ const ProductosDestacados = (req, res, next) => {
     console.log("algo paso");
    //var valores = ModeloPromo.buscarPromociones();
     //console.log(valores);
-    console.log("resultado final");
+    console.log("resultado");
+    console.log("todo bien");
     modelo.Producto.findAll({
       include: [{
           model: modelo.Marca

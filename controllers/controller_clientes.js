@@ -22,6 +22,7 @@ const GetClientSeller = (req, res, next) => {
         const respuesta = clientes.map(cliente => {
 
             return Object.assign({}, {
+
                 clienteid: cliente.id,
                 codigointerno: cliente.codigointerno,
                 razonsocial: cliente.razonsocial,

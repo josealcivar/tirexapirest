@@ -49,6 +49,8 @@ module.exports = function(sequelize, DataTypes) {
      Cliente.belongsTo(models.Vendedor);
      Cliente.belongsTo(models.Empresa);
 
+
+    
   }
 
   return Cliente;

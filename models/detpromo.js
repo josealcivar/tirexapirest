@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : false
     },
     porcentaje: {
-      type      : DataTypes.DECIMAL(2,2),
+      type      : DataTypes.DECIMAL(4,2),
       allowNull : false
     }
   }, {});
@@ -33,12 +33,14 @@ module.exports = function(sequelize, DataTypes) {
          primaryKey: true
     //   }
   });
-     Detpromo.belongsTo(models.Promocion,{
+     Detpromo.belongsTo(models.Promocion);
+
+     /* Detpromo.belongsTo(models.Promocion,{
        foreignKey: {
          primaryKey: true
        },
        onDelete: 'CASCADE'});
-
+       */
 
 
   };

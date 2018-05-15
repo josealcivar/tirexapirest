@@ -1,7 +1,7 @@
 /*
-@Descripcion: Api del productos
-@Autor: jose viteri
-@FechaCreacion: 25/05/2017
+@Descripcion: Api del Pedidos
+@Autor: jose Alcivar
+@FechaCreacion: 08/05/2019
 */
 
 
@@ -21,5 +21,11 @@ router.get('/destacados/', controlador.ProductosDestacados);
 router.get('/busqueda/:searchItem', controlador.ProductosConsultados);
 
 
+/*
+  @descripcion: Ingreso de Pedidos al sistema.
+  
+
+*/
+router.post('/', controlador.ProductosConsultados);
 
 module.exports = router;

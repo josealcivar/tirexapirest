@@ -6,17 +6,66 @@
 'use strict';
 
 var modelo      = require('../models');
-var dateFormat  = require('dateformat');
-const ModeloPromo	= require('../models/').Promocion;
+var moment = require('moment');
+var ll_valor;
+const Promo	= require('../models/').Promocion;
+
+
+const PromocionProductos =() => {
+  var porc_promo;
+  let ll_fecha = moment();
+  console.log(ll_fecha);
+  modelo.Detpromo.findAll({
+    where: {
+      fechadesde:{
+          $lte: ll_fecha
+      },
+      fechahasta:{
+         $gte: ll_fecha
+       }
+    },
+
+    include: [{
+      model: modelo.Promocion
+
+  }]
+
+}).then(promos => {
+
+      const respuesta = promos.map(promo => {
+
+      ll_valor = promo.porcentaje;
+
+
+       });
+// si no existe promocion en las fechas, se setea un valor 1 por default
+       if(respuesta.length == 0){
+         ll_valor=0;
+
+       }
+
+   }).catch(error => {
+
+      var status = false;
+       var mensaje = 'No se obtuvieron producto';
+       var jsonRespuesta = {
+           status: status,
+           mensaje: mensaje,
+           errorCliente: error
+       }
+       console.log(jsonRespuesta);
+
+   });
+
+	return null;
+}
+
 
 
 const ProductosDestacados = (req, res, next) => {
 
-    let fecha_actual = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
-    console.log(fecha_actual);
-    console.log("algo paso");
-   //var valores = ModeloPromo.buscarPromociones();
-    console.log("todo bien");
+    PromocionProductos();
+
     modelo.Producto.findAll({
       include: [{
           model: modelo.Marca
@@ -28,25 +77,24 @@ const ProductosDestacados = (req, res, next) => {
       }
 
     }).then(productos => {
+
         const respuesta = productos.map(producto => {
 
-            return Object.assign({}, {
-                id: producto.secuencia,
-                desde: producto.fechadesde,
-                hasta: producto.fechahasta,
-                porcentaje: producto.porcentaje
 
-              //  codigoalterno: producto.codigoalterno,
-            //    stock: producto.descripcion,
-            //    precio1: producto.precio1,
-            //    precio2: producto.precio2,
-            //    precio3: producto.precio3,
-            //    precio4: producto.precio4,
-              //  precio5: producto.precio5,
-            //    origen: producto.origen,
-            //    imagen: producto.rutaimagen,
-            //    grupo: producto.Grupo.descripcion,
-            //    marca: producto.Marca.descripcion
+            return Object.assign({}, {
+
+               codigoalterno: producto.codigoalterno,
+               stock: producto.descripcion,
+               precio1: producto.precio1,
+               precio2: producto.precio2,
+               precio3: producto.precio3,
+               precio4: producto.precio4,
+               precio5: producto.precio5,
+               origen: producto.origen,
+               imagen: producto.rutaimagen,
+               grupo: producto.Grupo.descripcion,
+               marca: producto.Marca.descripcion,
+               porcentaje: ll_valor
 
             });
         });
@@ -56,7 +104,7 @@ const ProductosDestacados = (req, res, next) => {
 
          }
 
-
+         console.log("muestra los datos del producto destacado");
           return res.json(respuesta);
 
     }).catch(error => {
@@ -79,12 +127,12 @@ const ProductosDestacados = (req, res, next) => {
 
 const ProductosConsultados = (req, res, next) => {
 
-
+    PromocionProductos();
     var ll_estado = "A";
 
     let ll_busqueda = req.params.searchItem;
 
-    console.log(ll_busqueda);
+
     modelo.Producto.findAll({
       include: [{
           model: modelo.Marca
@@ -113,7 +161,8 @@ const ProductosConsultados = (req, res, next) => {
                 origen: producto.origen,
                 imagen: producto.rutaimagen,
                 grupo: producto.Grupo.descripcion,
-                marca: producto.Marca.descripcion
+                marca: producto.Marca.descripcion,
+                promocion: ll_valor
 
             });
         });

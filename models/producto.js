@@ -46,6 +46,10 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.DECIMAL(10,4),
       allowNull : true
     },
+    porc_promo: {
+      type: DataTypes.DECIMAL(2,2),
+      allowNull:true
+    },
     origen: {
       type : DataTypes.STRING(1),
       allowNull : true

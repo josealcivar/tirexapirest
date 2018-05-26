@@ -29,11 +29,11 @@ module.exports = function(sequelize, DataTypes) {
       }*/
     },
     porcdescto: {
-      type : DataTypes.DECIMAL(2,2),
+      type : DataTypes.DECIMAL(4,2),
       allowNull : true
     },
     porcpromo: {
-      type : DataTypes.DECIMAL(2,2),
+      type : DataTypes.DECIMAL(4,2),
       allowNull : true
     },
     estado_orden: {

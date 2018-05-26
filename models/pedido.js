@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : true
     },
     porcdesct: {
-      type : DataTypes.DECIMAL(2,2),
+      type : DataTypes.DECIMAL(3,2),
       allowNull : true,
       /*validate : {
         isIn : ['activo', 'inactivo' ]

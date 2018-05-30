@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "bddcb9584adbd0",
-    "password": "9402c810",
-    "database": "heroku_67564d1f5740f3e",
-    "host": "us-cdbr-iron-east-04.cleardb.net",
+    "username": "root",
+    "password": "root1234",
+    "database": "tirexdb",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
   },
@@ -15,10 +15,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "bddcb9584adbd0",
-    "password": "9402c810",
-    "database": "heroku_67564d1f5740f3e",
-    "host": "us-cdbr-iron-east-04.cleardb.net",
+    "username": "root",
+    "password": "root1234",
+    "database": "tirexdb",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false
   }

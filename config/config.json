@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root1234",
-    "database": "tirexdb",
-    "host": "127.0.0.1",
+    "username": "bddcb9584adbd0",
+    "password": "9402c810",
+    "database": "heroku_67564d1f5740f3e",
+    "host": "us-cdbr-iron-east-04.cleardb.net",
     "dialect": "mysql",
     "logging": false
   },

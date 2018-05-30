@@ -10,8 +10,8 @@ var passport = require('passport');
 var expressSession = require('express-session');
 var flash         = require('connect-flash');
 
+// mysql://bddcb9584adbd0:9402c810@us-cdbr-iron-east-04.cleardb.net/heroku_67564d1f5740f3e?reconnect=true
 
- 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var clientes = require('./routes/clientes.api.router');

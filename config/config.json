@@ -15,10 +15,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "root1234",
-    "database": "tirexdb",
-    "host": "127.0.0.1",
+    "username": "b8e38264a3b533",
+    "password": "6876d238",
+    "database": "heroku_82bf43c6879f0ee",
+    "host": "us-cdbr-iron-east-04.cleardb.net",
     "dialect": "mysql",
     "logging": false
   }

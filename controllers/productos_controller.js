@@ -173,8 +173,7 @@ const ProductosConsultados = (req, res, next) => {
         imagen:        producto.rutaimagen,
         porc_promo:    producto.porc_promo,
         grupo:         producto.Grupo.descripcion,
-        marca:         producto.Marca.descripcion,
-        promocion:     ll_valor
+        marca:         producto.Marca.descripcion
 
       });
     });

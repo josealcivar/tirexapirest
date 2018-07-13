@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : true
     },
     porc_promo: {
-      type: DataTypes.DECIMAL(2,2),
+      type: DataTypes.DECIMAL(4,2),
       allowNull:true
     },
     origen: {
@@ -62,7 +62,9 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {});
+  }, {
+    
+  });
 
   Producto.associate = function(models) {
     // associations can be defined here

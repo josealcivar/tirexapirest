@@ -7,15 +7,22 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 
 var passport = require('passport');
+// let LocalStrategy = require('passport-local').Strategy;
 var expressSession = require('express-session');
-var flash         = require('connect-flash');
+var flash = require('connect-flash');
 
 // mysql://bddcb9584adbd0:9402c810@us-cdbr-iron-east-04.cleardb.net/heroku_67564d1f5740f3e?reconnect=true
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var clientes = require('./routes/clientes.api.router');
+const login = require('./routes/layout/login.layout.router');
+const index = require('./routes/layout/index.layout.router');
+
+
+var api_index = require('./routes/index');
+var users     = require('./routes/users');
+var clientes  = require('./routes/clientes.api.router');
 var productos = require('./routes/productos.api.router');
+var apilogin  = require('./routes/login');
+
 
 var app = express();
 
@@ -27,26 +34,43 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*
-  parte inicial de la ruta
 
+
+/*
+  parte donde se inicializa las vistas
+*/
+app.use('/', login);
+app.use('/index', index);
+
+
+/*
+  parte inicial de la ruta api
 */
 app.use('/', clientes);
 app.use('/users', users);
+app.use('/api/login', apilogin);
 app.use('/productos', productos);
 app.use('/clientes', clientes);
 
 
 
 
+
+/*
+// Load passport strategies
+ */
+// require('./config/passport/passport.js')(passport, models.user);
+
 app.use(expressSession({
   secret: 'mySecretKey',
   saveUninitialized: true,
-  resave:true
+  resave: true
 }));
 
 // passport init

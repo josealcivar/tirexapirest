@@ -1,11 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div id="appSignup">
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <p id="hello">Welcome to
+      <%= title %>
+    </p>
+
+    <button type="submit" class="btn btn-primary btn-block btn-flat" @click="login">Register</button>
+  </div>
+
+  <% include partials/scripts %>
+    <script>
+      var vm = new Vue({
+        el: '#appSignup',
+        mounted() {
+
+        },
+        data: {
+          nombre: 'hola mundialito',
+          usuario: '',
+          password: '',
+          fallaLogin: false
+        },
+        methods: {
+          login() {
+            let self = this;
+            var url = "/api/login/register";
+            let obj = {
+              nombre: self.nombre //$('#nombre').val(),
+              //  usuario: $('#usuario').val(),
+              //password: $('#password').val()
+            };
+
+
+            $.ajax({
+              type: 'POST',
+              data: obj,
+              url: '/api/login/register',
+              success(res) {
+                //	localStorage.setItem('token', res.token);
+                alert("what happend!!");
+                console.log("**********************");
+                console.log(res);
+                console.log("**********************");
+                //	window.location.href = '/login';
+              },
+              error(res) {
+                alert("no se pudo agregar el registro");
+                console.log("Error algo paso");
+                self.fallaLogin = true;
+              }
+            });
+          }
+        }
+      });
+    </script>
+
+</body>
+
 </html>

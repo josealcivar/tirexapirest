@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   var Detpromo = sequelize.define('Detpromo', {
     secuencia: {
       type       : DataTypes.INTEGER,
-      primaryKey : true,
+      primaryKey: true,
       allowNull  : false
     },
     fechadesde: {
@@ -24,26 +24,24 @@ module.exports = function(sequelize, DataTypes) {
       type      : DataTypes.DECIMAL(4,2),
       allowNull : false
     }
-  }, {});
+  }, {
 
-  Detpromo.associate = function(models) {
-    // associations can be defined here
-     Detpromo.belongsTo(models.Empresa,{
-    //   foreignKey: {
-         primaryKey: true
-    //   }
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Detpromo.belongsTo(models.Empresa,{
+              foreignKey: {
+                primaryKey: true
+              },
+              onDelete: 'CASCADE'});
+            Detpromo.belongsTo(models.Promocion,{
+                foreignKey: {primaryKey:true},
+                onDelete: 'CASCADE'});
+      }
+    }
   });
-     Detpromo.belongsTo(models.Promocion);
-
-     /* Detpromo.belongsTo(models.Promocion,{
-       foreignKey: {
-         primaryKey: true
-       },
-       onDelete: 'CASCADE'});
-       */
 
 
-  };
 
   return Detpromo;
 

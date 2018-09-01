@@ -63,17 +63,16 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : true
     }
   }, {
-    
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Producto.belongsTo(models.Grupo);
+            Producto.belongsTo(models.Marca);
+            Producto.belongsTo(models.Empresa);
+      }
+    }
   });
 
-  Producto.associate = function(models) {
-    // associations can be defined here
-    Producto.belongsTo(models.Grupo);
-    Producto.belongsTo(models.Marca);
-    Producto.belongsTo(models.Empresa);
-
-
-  }
 
   return Producto;
 

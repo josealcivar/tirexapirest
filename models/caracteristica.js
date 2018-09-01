@@ -17,20 +17,26 @@ module.exports = function(sequelize, DataTypes) {
       type      : DataTypes.STRING(1),
       allowNull : false
     }
-  }, {});
+  }, {
 
-  Caracteristica.associate = function(models) {
-    // associations can be defined here
-     Caracteristica.belongsTo(models.Empresa);
-     Caracteristica.belongsTo(models.Producto,
-      {
-        foreignKey: {
-                        primaryKey: true,
-                        allowNull: false
-                      }
-      });
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Caracteristica.belongsTo(models.Empresa);
+            Caracteristica.belongsTo(models.Producto,
+             {
+               foreignKey: {
+                               primaryKey: true,
+                               allowNull: false
+                             },
+                             onDelete: 'CASCADE'});
+      }
+    }
+  });
 
-   };
+
+
+
 
   return Caracteristica;
 

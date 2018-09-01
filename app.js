@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
+var modelo = require('./models');
 
 var passport = require('passport');
 // let LocalStrategy = require('passport-local').Strategy;
@@ -45,8 +46,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*
   parte donde se inicializa las vistas
 */
-app.use('/', login);
-app.use('/index', index);
+app.use('/login', login);
+app.use('/', index);
 
 
 /*
@@ -57,7 +58,6 @@ app.use('/users', users);
 app.use('/api/login', apilogin);
 app.use('/productos', productos);
 app.use('/clientes', clientes);
-
 
 
 
@@ -79,11 +79,21 @@ app.use(passport.session());
 
 app.use(flash());
 
+/*
+************ passport
+*/
+
+//load passport strategies
+require('./config/passport.js')(passport,modelo.Vendedor);
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+  res.render(404);
 });
 
 // error handler

@@ -94,7 +94,8 @@ const ProductosDestacados = (req, res, next) => {
       return Object.assign({}, {
 
         codigoalterno: producto.codigoalterno,
-        stock:         producto.descripcion,
+        descripcion:   producto.descripcion,
+        stock:         producto.stock,
         precio1:       producto.precio1,
         precio2:       producto.precio2,
         precio3:       producto.precio3,

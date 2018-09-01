@@ -44,27 +44,27 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {});
+  }, {
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Det_pedido.belongsTo(models.Empresa);
+            // se crea un campo como primarykey que pertenece a Pedido
+            Det_pedido.belongsTo(models.Pedido,{
+              foreignKey: {
+                primaryKey: true
+              },
+              onDelete: 'CASCADE'});
+              // campo de producto
+            Det_pedido.belongsTo(models.Producto,{
+              foreignKey: {
+                primaryKey: true
+              },
+              onDelete: 'CASCADE'});
 
-  Det_pedido.associate = function(models) {
-    // associations can be defined here
-
-     Det_pedido.belongsTo(models.Empresa);
-     // se crea un campo como primarykey que pertenece a Pedido
-     Det_pedido.belongsTo(models.Pedido,{
-       foreignKey: {
-         primaryKey: true
-       },
-       onDelete: 'CASCADE'});
-       // campo de producto
-     Det_pedido.belongsTo(models.Producto,{
-       foreignKey: {
-         primaryKey: true
-       },
-       onDelete: 'CASCADE'});
-
+      }
   }
-
+});
   return Det_pedido;
 
 };

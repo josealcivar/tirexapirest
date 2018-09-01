@@ -12,9 +12,24 @@
 var express = require('express');
 var router = express.Router();
 
-//Responde con la página de ingreso de benefactor
-router.get('/', function(req, res, next) {
+// redirige a la pagina inicial si ha sido loggeado
+router.get('/index',isLoggedIn, function(req, res, next) {
   res.render('index');
 });
+
+
+// redirige a la pagina inicial si ha sido loggeado
+router.get('/clientes', function(req, res, next) {
+  res.render('clientes', {title: "hola mundo"});
+});
+
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('login/');
+  }
+
 
 module.exports = router;

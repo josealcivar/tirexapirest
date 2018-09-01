@@ -8,7 +8,7 @@
 const bcrypt = require('bcryptjs');
 
 module.exports = function(sequelize, DataTypes) {
-  var Vendedor = sequelize.define('Vendedor', {
+  let Vendedor = sequelize.define('Vendedor', {
     codigointerno: {
       type: DataTypes.STRING,
       allowNull: true
@@ -17,11 +17,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    usuario: {
+    email: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    contrasena: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -30,39 +30,43 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
+      classMethods: {
+        associate: function(models) {
+          // associations can be defined here
+          Vendedor.belongsTo(models.Empresa);
 
-    crearVendedor: function(vendedor, callback, errorCallback){
-            this.create({
-              usuario :   vendedor.usuario,
-              password:   vendedor.password,
-              nombre  :   vendedor.nombre,
-              estado  :   vendedor.activo
-
-            }).then(callback).catch(errorCallback);
-          },
-
-    buscarUsuario: function(ll_usuario) {
-      this.findById({
-        where: {
-          usuario: ll_usuario
+        },
+        buscarUsuarios: function(email){
+          console.log("perooooo");
+          console.log(email);
+    return new Promise( (resolve, reject) => {
+      if( !email || email === '' ) { return reject( { mensaje : 'No ingresó el email'} ); }
+      return this.findOne({
+        where : {
+          email : email
         }
-      }).then(user).catch('hola');
-    },
-
-  generateHash: function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-  },
-
-  validatePassword: function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+      })
+      .then( vendedor => {
+        console.log("aqui tomo los datos");
+        console.log(vendedor.id);
+        return resolve(vendedor);
+      })
+      .catch( fail => {
+        return reject("hola");
+      });
+    });
   }
-});
+      }
 
-  Vendedor.associate = function(models) {
-    // associations can be defined here
-    Vendedor.belongsTo(models.Empresa);
+  });
 
-  };
+
+
+  // Vendedor.associate = function(models) {
+  //   // associations can be defined here
+  //   Vendedor.belongsTo(models.Empresa);
+  //
+  // };
   return Vendedor;
 
 };

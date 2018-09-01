@@ -26,23 +26,24 @@ module.exports = function(sequelize, DataTypes) {
       type        : DataTypes.STRING(1),
       allowNull   : true
     }
-  }, {});
+  }, {
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Det_caracter.belongsTo(models.Empresa);
+             // campo de Caracteristica
+             Det_caracter.belongsTo(models.Caracteristica,
+               {
+               foreignKey: {
+                               primaryKey: true,
+                               allowNull: false
+                             }
+             });
+      }
+    }
+  });
 
-  Det_caracter.associate = function(models) {
-    // associations can be defined here
 
-      Det_caracter.belongsTo(models.Empresa);
-       // campo de Caracteristica
-       Det_caracter.belongsTo(models.Caracteristica,
-         {
-         foreignKey: {
-                         primaryKey: true,
-                         allowNull: false
-                       }
-       });
-
-
-  }
 
   return Det_caracter;
 

@@ -106,6 +106,7 @@ const IngresoVendedorUsr = (req, res, next) => {
   });
 };
 
+
 module.exports = {
   ObtenercorreoVend
 }

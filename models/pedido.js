@@ -48,20 +48,21 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {});
-
-  Pedido.associate = function(models) {
-    // associations can be defined here
-     Pedido.belongsTo(models.Vendedor);
-     Pedido.belongsTo(models.Cliente);
-     Pedido.belongsTo(models.Empresa);
-     Pedido.hasMany(models.Det_pedido, {
-        foreignKey: {
-          primaryKey: true
-        }
-     });
-
-  }
+  }, {
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Pedido.belongsTo(models.Vendedor);
+            Pedido.belongsTo(models.Cliente);
+            Pedido.belongsTo(models.Empresa);
+            Pedido.hasMany(models.Det_pedido, {
+               foreignKey: {
+                 primaryKey: true
+               }
+            });
+            }
+          }
+  });
 
   return Pedido;
 

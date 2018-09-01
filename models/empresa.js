@@ -16,12 +16,14 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  },{});
+  },{
+    classMethods: {
 
-  Empresa.associate = function(models) {
-    // associations can be defined here
+    }
 
-  }
+  });
+
+
 
   return Empresa;
 

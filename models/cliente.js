@@ -42,16 +42,17 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {});
+  }, {
+    classMethods: {
+      associate: function(models) {
+            // associations can be defined here
+            Cliente.belongsTo(models.Vendedor);
+            Cliente.belongsTo(models.Empresa);
+      }
+    }
+  });
 
-  Cliente.associate = function(models) {
-    // associations can be defined here
-     Cliente.belongsTo(models.Vendedor);
-     Cliente.belongsTo(models.Empresa);
 
-
-    
-  }
 
   return Cliente;
 

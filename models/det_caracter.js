@@ -1,14 +1,15 @@
 /*
-@Descripcion: Modelo de procariano
-@Autor: jose viteri
-@FechaCreacion: 20/05/2017
-@UltimaFechaModificacion: 03/06/2017 @JoseViteri
+@Descripcion: Modelo de Detalles Caracteristicas
+@Autor: jose Alcivar
+@FechaCreacion: 08/09/2018
+@UltimaFechaModificacion: 08/09/2018 @JoseAlcivar
 */
+
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Det_caracter = sequelize.define('Det_caracter', {
     id:           {
-      type          : DataTypes.INTEGER,
+      type          : DataTypes.BIGINT,
       primaryKey    : true,
       autoIncrement : true,
       allowNull     : false
@@ -26,10 +27,14 @@ module.exports = function(sequelize, DataTypes) {
       type        : DataTypes.STRING(1),
       allowNull   : true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-            // associations can be defined here
+
+
+  }, {});
+
+
+  Det_caracter.associate = function(models){
+    
+       // associations can be defined here
             Det_caracter.belongsTo(models.Empresa);
              // campo de Caracteristica
              Det_caracter.belongsTo(models.Caracteristica,
@@ -38,10 +43,9 @@ module.exports = function(sequelize, DataTypes) {
                                primaryKey: true,
                                allowNull: false
                              }
-             });
-      }
-    }
-  });
+                });
+
+  }
 
 
 

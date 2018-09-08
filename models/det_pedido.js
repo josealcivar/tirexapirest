@@ -1,8 +1,8 @@
 /*
-@Descripcion: Modelo de procariano
-@Autor: jose viteri
-@FechaCreacion: 20/05/2017
-@UltimaFechaModificacion: 03/06/2017 @JoseViteri
+@Descripcion: Modelo de Detalles Pedidos
+@Autor: jose Alcivar
+@FechaCreacion: 08/09/2018
+@UltimaFechaModificacion: 08/09/2018 @JoseAlcivar
 */
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -44,10 +44,11 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-            // associations can be defined here
+  
+  }, {});
+
+Det_pedido.associate = function(models){
+   // associations can be defined here
             Det_pedido.belongsTo(models.Empresa);
             // se crea un campo como primarykey que pertenece a Pedido
             Det_pedido.belongsTo(models.Pedido,{
@@ -60,11 +61,10 @@ module.exports = function(sequelize, DataTypes) {
               foreignKey: {
                 primaryKey: true
               },
-              onDelete: 'CASCADE'});
+onDelete: 'CASCADE'});
+}
 
-      }
-  }
-});
+
   return Det_pedido;
 
 };

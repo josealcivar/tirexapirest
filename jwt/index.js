@@ -30,7 +30,7 @@ app.post('/api/login', (req, res) => {
         username:'brad',
         email:'mail@mail.com'
     }
-    jwt.sign({user}, 'secretkey', { expiresIn: '30s' }, (err, token) =>{
+    jwt.sign({user}, 'secretkey', { expiresIn: '100s' }, (err, token) =>{
         
         res.json({
             token
@@ -44,21 +44,22 @@ app.post('/api/login', (req, res) => {
 
 function verifyToken(req, res, next){
     //Get auth header values
-    const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers['x-access-token'];
+    // const bearerHeader = req.headers['authorization'];
     //check if bearer is underfined
     if(typeof bearerHeader!== 'undefined'){
         // split at space
         console.log("PRIMERO ESTE")
         console.log(bearerHeader);
-        const bearer = bearerHeader.split(' ');
+        // const bearer = bearerHeader.split(' ');
         console.log("SEGUNDO ESTE")
-        console.log(bearer);
+        // console.log(bearer);
         //Get token from array 
-        const bearerToken = bearer[1];
+        // const bearerToken = bearer[0];
         // set the token
         console.log("Por ultimo este de aqui")
-        console.log(bearerToken);
-        req.token = bearerToken;
+        // console.log(bearerToken);
+        req.token = bearerHeader;
         //Next moddleeare
         next();
     }else{

@@ -29,44 +29,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     }
+    
   }, {
-      classMethods: {
-        associate: function(models) {
-          // associations can be defined here
-          Vendedor.belongsTo(models.Empresa);
-
-        },
-        buscarUsuarios: function(email){
-          console.log("perooooo");
-          console.log(email);
-    return new Promise( (resolve, reject) => {
-      if( !email || email === '' ) { return reject( { mensaje : 'No ingresó el email'} ); }
-      return this.findOne({
-        where : {
-          email : email
-        }
-      })
-      .then( vendedor => {
-        console.log("aqui tomo los datos");
-        console.log(vendedor.id);
-        return resolve(vendedor);
-      })
-      .catch( fail => {
-        return reject("hola");
-      });
-    });
-  }
-      }
-
+  
   });
 
-
-
-  // Vendedor.associate = function(models) {
-  //   // associations can be defined here
-  //   Vendedor.belongsTo(models.Empresa);
-  //
-  // };
+      Vendedor.associate = function(models) {
+        // associations can be defined here
+        Vendedor.belongsTo(models.Empresa);
+      
+      };
   return Vendedor;
 
 };

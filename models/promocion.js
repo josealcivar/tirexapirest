@@ -1,8 +1,8 @@
 /*
-@Descripcion: Modelo de Promocion
+@Descripcion: Modelo de Promociones
 @Autor: jose Alcivar
-@FechaCreacion: 08/05/2018
-@UltimaFechaModificacion: 08/05/2018 @JoseAlcivar
+@FechaCreacion: 08/09/2018
+@UltimaFechaModificacion: 08/09/2018 @JoseAlcivar
 */
 'use strict';
 
@@ -25,15 +25,13 @@ module.exports = function(sequelize, DataTypes) {
       type : DataTypes.STRING(1),
       allowNull : true
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-            // associations can be defined here
-         Promocion.belongsTo(models.Empresa);
-            }
-          }
+    }, {
+
   });
 
+Promocion.associate = (models)=> {
+  Promocion.belongsTo(models.Empresa);
+}
   
   return Promocion;
 

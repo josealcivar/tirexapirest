@@ -24,7 +24,6 @@ var clientes  = require('./routes/clientes.api.router');
 var productos = require('./routes/productos.api.router');
 var apilogin  = require('./routes/login');
 
-
 var app = express();
 
 // view engine setup

@@ -1,8 +1,8 @@
 /*
-@Descripcion: Modelo de procariano
-@Autor: jose viteri
-@FechaCreacion: 20/05/2017
-@UltimaFechaModificacion: 03/06/2017 @JoseViteri
+@Descripcion: Modelo de Empresa
+@Autor: jose Alcivar
+@FechaCreacion: 08/09/2018
+@UltimaFechaModificacion: 08/09/2018 @JoseAlcivar
 */
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -17,9 +17,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull : true
     }
   },{
-    classMethods: {
-
-    }
+   
 
   });
 

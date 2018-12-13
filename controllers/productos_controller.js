@@ -5,16 +5,16 @@
 
 var modelo  = require('../models');
 var moment  = require('moment');
-var ll_valor;
-const Promo = require('../models/').Promocion;
+let status = require('../response/status');
+
 
 /**
- * @Descripcion: Funcion que sirve para Extraer promocion de productos.
- * siempre y cuando exista promocion.
- *
+ * @description: Funcion que sirve para Extraer promocion de productos.
+*               siempre y cuando exista promocion.
  */
+
 const PromocionProductos = () => {
-  var porc_promo;
+
   let ll_fecha = moment();
 
 
@@ -64,6 +64,11 @@ const PromocionProductos = () => {
   return null;
 }
 
+
+
+
+
+
 /**
  * @Descripcion: Extrae Productos Destacados.
  * @param {[type]}   req  [description]
@@ -89,54 +94,40 @@ const ProductosDestacados = (req, res, next) => {
 
   }).then(productos => {
 
-    const respuesta = productos.map(producto => {
+    const data = productos.map(producto => {
 
       return Object.assign({}, {
 
-        codigoalterno: producto.codigoalterno,
-        descripcion:   producto.descripcion,
-        stock:         producto.stock,
-        precio1:       producto.precio1,
-        precio2:       producto.precio2,
-        precio3:       producto.precio3,
-        precio4:       producto.precio4,
-        precio5:       producto.precio5,
-        origen:        producto.origen,
-        imagen:        producto.rutaimagen,
-        porc_promo:    producto.porc_promo,
-        grupo:         producto.Grupo.descripcion,
-        marca:         producto.Marca.descripcion
+        codigoalterno :   producto.codigoalterno,
+        descripcion   :   producto.descripcion,
+        stock         :   producto.stock,
+        precio1       :   producto.precio1,
+        precio2       :   producto.precio2,
+        precio3       :   producto.precio3,
+        precio4       :   producto.precio4,
+        precio5       :   producto.precio5,
+        origen        :   producto.origen,
+        imagen        :   producto.rutaimagen,
+        porc_promo    :   producto.porc_promo,
+        grupo         :   producto.Grupo.descripcion,
+        marca         :   producto.Marca.descripcion
 
       });
     });
 
-    if (respuesta.length == 0) {
-      console.log("No existen datos");
-
-    }
-
-    console.log("muestra los datos del producto destacado");
-    return res.json(respuesta);
+  
+    return status.okGet(res, 'Busqueda Productos destacados exitosa', data);
 
   }).catch(error => {
-
-    var status        = false;
-    var mensaje       = 'No se obtuvieron producto';
-    var jsonRespuesta = {
-      status:       status,
-      mensaje:      mensaje,
-      errorCliente: error
-    }
-    console.log(jsonRespuesta);
-    res.json(jsonRespuesta);
-  });
+      return status.error(res, 'No se obtuvieron registros', '', error);
+      });
 };
 
 /*
   Descripcion: Busqueda de Productos en Consultas.
 */
 
-const ProductosConsultados = (req, res, next) => {
+const ProductosConsultadosParametros = (req, res) => {
 
   PromocionProductos();
   var ll_estado = "A";
@@ -159,7 +150,7 @@ const ProductosConsultados = (req, res, next) => {
     }
 
   }).then(productos => {
-    const respuesta = productos.map(producto => {
+    const data = productos.map(producto => {
 
       return Object.assign({}, {
         id:            producto.id,
@@ -179,28 +170,14 @@ const ProductosConsultados = (req, res, next) => {
       });
     });
 
-    if (respuesta.length == 0) {
-      console.log("No existen datos");
-
-    }
-
-    return res.json(respuesta);
+    return status.okGet(res, 'Busqueda de Productos exitosa', data);
 
   }).catch(error => {
-
-    var status  = false;
-    var mensaje = 'No se obtuvieron producto';
-    var jsonRespuesta = {
-      status:       status,
-      mensaje:      mensaje,
-      errorCliente: error
-    }
-    console.log(jsonRespuesta);
-    res.json(jsonRespuesta);
-  });
+      return status.error(res, 'No se obtuvieron registros', '', error);
+      });
 };
 
 module.exports = {
   ProductosDestacados,
-  ProductosConsultados
+  ProductosConsultadosParametros
 }

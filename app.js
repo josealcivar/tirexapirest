@@ -18,11 +18,12 @@ const login = require('./routes/layout/login.layout.router');
 const index = require('./routes/layout/index.layout.router');
 
 
-var api_index = require('./routes/index');
-var users     = require('./routes/users');
-var clientes  = require('./routes/clientes.api.router');
-var productos = require('./routes/productos.api.router');
-var apilogin  = require('./routes/login');
+var api_index = require('./routes/api/index');
+var users     = require('./routes/api/users');
+var clientes  = require('./routes/api/clientes.api.router');
+var productos = require('./routes/api/productos.api.router');
+var vendedor = require('./routes/api/vendedor.api.router');
+var apilogin  = require('./routes/api/login');
 
 var app = express();
 
@@ -52,12 +53,13 @@ app.use('/', index);
 /*
   parte inicial de la ruta api
 */
-app.use('/', clientes);
-app.use('/users', users);
+app.use('/api', api_index);
+app.use('/api/clientes', clientes);
+app.use('/api/users', users);
 app.use('/api/login', apilogin);
-app.use('/productos', productos);
-app.use('/clientes', clientes);
-
+app.use('/api/productos', productos);
+app.use('/api/clientes', clientes);
+app.use('/api/vendedor', vendedor);
 
 
 

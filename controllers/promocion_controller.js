@@ -1,8 +1,8 @@
-/*
-@Descripcion: Consulta de productos Destacados al servidor
-@Autor: Jose Alcivar
-@FechaCreacion: 16/03/2018
-*/
+
+/**
+ * @description Consulta de productos Destacados al servidor
+ * @author Jose Alcivar
+ */
 'use strict';
 
 var modelo = require('../models');
@@ -11,10 +11,10 @@ var modelo = require('../models');
   Descripcion: Busqueda de Productos en Consultas.
 
 */
-const ProductoPromocion = (req, res, next) => {
+const ProductoPromocion = (req, res) => {
 
 
-    var ll_estado = "A";
+    var ll_estado = true;
     console.log(ll_estado);
     let ll_busqueda = req.params.searchItem;
 

@@ -5,7 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var router = express.Router();
 
-var modelos = require('../models');
+var modelos = require('../../models');
 
 
 //LOCAL STRATEGY

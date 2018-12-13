@@ -9,9 +9,9 @@
 /* jshint node: true */
 'use strict';
 
-var controlador = require('../controllers/controller_clientes');
+var controlador = require('../../controllers/controller_clientes');
 
-var models = require('../models').Vendedor;
+var models = require('../../models').Vendedor;
 var express = require('express');
 var router = express.Router();
 

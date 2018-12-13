@@ -8,7 +8,7 @@
 /* jshint node: true */
 'use strict';
 
-var controlador = require('../controllers/productos_controller');
+var controlador = require('../../controllers/productos_controller');
 var express = require('express');
 var router = express.Router();
 
@@ -18,7 +18,7 @@ var router = express.Router();
 router.get('/destacados/', controlador.ProductosDestacados);
 //router.get('/', controlador.ProductosDestacados);
 /*GET productos de busqueda*/
-router.get('/busqueda/:searchItem', controlador.ProductosConsultados);
+router.get('/busqueda/:searchItem', controlador.ProductosConsultadosParametros);
 
 
 

@@ -8,7 +8,7 @@
 /* jshint node: true */
 'use strict';
 
-var controlador = require('../controllers/productos_controller');
+var controlador = require('../../controllers/productos_controller');
 var express = require('express');
 var router = express.Router();
 

@@ -5,7 +5,8 @@
 @UltimaFechaModificacion: 03/06/2017 @JoseAlcivar
 */
 'use strict';
-const bcrypt = require('bcryptjs');
+
+const errors    = require('../response/error');
 
 module.exports = function(sequelize, DataTypes) {
   let Vendedor = sequelize.define('Vendedor', {
@@ -39,6 +40,27 @@ module.exports = function(sequelize, DataTypes) {
         Vendedor.belongsTo(models.Empresa);
       
       };
+
+      Vendedor.BuscarUsuario = function(ll_usuario, ll_codigointerno){
+        return new Promise((resolve, reject)=>{
+
+        });
+      };
+
+      Vendedor.CreateVendedor= function(vendedor, transaction){
+        return new Promise((resolve, reject)=>{
+          
+          if(!vendedor.nombre){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));}
+          if(!vendedor.email){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso email'));}
+          return Vendedor.create(vendedor,transaction).then(vendedor=>{
+            return resolve(vendedor);
+          }).catch(fail=>{
+            return reject(errors.ERROR_HANDLER(fail));
+          });
+        });
+      };
+      
+      
   return Vendedor;
 
 };

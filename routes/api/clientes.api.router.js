@@ -24,6 +24,9 @@ router.get('/all/:vend_id', controlador.GetClientSeller);
 @Descripcion: se obtiene un solo cliente
 */
 
-router.get('/:id', controlador.cliente_x_id);
+router.get('/:id', controlador.getClientById);
+
+router.post('/create', controlador.createClient);
+
 
 module.exports = router;

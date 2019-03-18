@@ -29,5 +29,9 @@ module.exports.SEQUELIZE_VALIDATION_ERROR = (mensaje) => {
     if ( fail.name === 'SequelizeUniqueConstraintError') {
       return this.SEQUELIZE_ERROR('Registro duplicado', fail.name);
     }
+    if ( fail.name === 'ERR_INVALID_ARG_TYPE') {
+      return this.SEQUELIZE_ARGUMENT_ERROR('datos vacios', fail.name);
+    }
+    
     return this.SEQUELIZE_ERROR(fail.message, fail.name);
   }

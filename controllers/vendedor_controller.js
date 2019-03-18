@@ -8,40 +8,44 @@
 var modelo          = require('../models');
 const sequelize	 		= require('../models/').sequelize;
 
-
+const bcrypt = require('bcryptjs');
 let status            = require('../response/status');
 const ModeloVendedor	= require('../models/').Vendedor;
+const ModeloEmpresa	= require('../models/').Empresa;
 
 
 
-module.exports.CrearVendedor = (req, res, next) => {
+module.exports.CreateVendedor = (req, res, next) => {
 
   let ll_estado = true;
   let ll_empresa = 1;  
-  console.log("ll_estado");
+  
   let vendedor = {
     codigointerno : req.body.codigointerno,
     nombre        : req.body.nombre,
-    usuario       : req.body.usuario,
-    contrasena    : req.body.contrasena,
-    estado        : ll_estado,
-    empresa       : ll_empresa,
+    email         : req.body.usuario,
+    password      : bcrypt.hashSync(req.body.contrasena),
+    estado        : ll_estado
  
     };
 
+    
+
 	inicializarTransaccion().then( t => {
     
-    ModeloVendedor.VendedorCreate(vendedor, t).then(vendedorCreado => {
+    ModeloVendedor.CreateVendedor(vendedor, t).then(vendedorCreado => {
       // res.locals.t 				 = t;
       // res.locals.idVendedor = vendedorCreado.get('id');
       
       // next();
       //t.commit();
-      return status.okCreate(res, 'Vendedor Creado correctamente',vendedorCreado.get('id'));
+      console.log("debe crear un registro");
+      console.log(vendedorCreado);
+      return status.okCreate(res, 'Vendedor creado correctamente',vendedorCreado.get('id'));
         }).catch(fail =>{
          // t.rollback();
-          console.log("no guarda porque ya existe");
-          return status.ERROR_SERVIDOR(res, fail);
+          
+          return status.error(res,'','', fail);
       });
 
 	}).catch( fail => {

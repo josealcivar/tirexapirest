@@ -30,6 +30,6 @@ var router = express.Router();
 @Descripcion: se obtiene un solo cliente
 */
 
-router.post('/create/', controlador.BuscarVendedor);
+router.post('/create', controlador.CreateVendedor);
 
 module.exports = router;

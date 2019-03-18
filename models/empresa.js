@@ -20,7 +20,17 @@ module.exports = function(sequelize, DataTypes) {
    
 
   });
-
+ /**
+  * @description funcion para obtener una empresa por su Id
+  * 
+  */
+  Empresa.GetEmpresaById = async function(empresaId){
+      try{
+        return await Empresa.findOne({where:{id:empresaId}});
+      }catch(e){
+        return reject(errors.ERROR_HANDLER(fail));
+      }
+  };
 
 
   return Empresa;

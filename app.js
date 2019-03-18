@@ -20,6 +20,7 @@ const index = require('./routes/layout/index.layout.router');
 
 var api_index = require('./routes/api/index');
 var users     = require('./routes/api/users');
+var empresas = require('./routes/api/empresa.api.router');
 var clientes  = require('./routes/api/clientes.api.router');
 var productos = require('./routes/api/productos.api.router');
 var vendedor = require('./routes/api/vendedor.api.router');
@@ -54,12 +55,13 @@ app.use('/', index);
   parte inicial de la ruta api
 */
 app.use('/api', api_index);
-app.use('/api/clientes', clientes);
-app.use('/api/users', users);
-app.use('/api/login', apilogin);
-app.use('/api/productos', productos);
-app.use('/api/clientes', clientes);
-app.use('/api/vendedor', vendedor);
+app.use('/api/services/clientes', clientes);
+app.use('/api/services/empresas', empresas);
+app.use('/api/services/users', users);
+app.use('/api/services/login', apilogin);
+app.use('/api/services/productos', productos);
+app.use('/api/services/clientes', clientes);
+app.use('/api/services/vendedor', vendedor);
 
 
 

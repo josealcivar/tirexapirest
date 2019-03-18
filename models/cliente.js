@@ -5,6 +5,10 @@
 @UltimaFechaModificacion: 08/09/2018 @JoseAlcivar
 */
 'use strict';
+
+const errors = require('../response/error');
+const status = require('../response/status');
+
 module.exports = (sequelize, DataTypes) => {
   var Cliente = sequelize.define('Cliente', {
     codigointerno: {
@@ -53,6 +57,15 @@ module.exports = (sequelize, DataTypes) => {
 
   }
 
+Cliente.createCliente = function(datacliente, transaction){
+  return new Promise ((resolve, reject) => {
+    if(!datacliente.identificacion) return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));
+    return Cliente.create(datacliente,{transaction}).then(cliente=>{
+      return resolve(cliente);}).catch(fail=>{
+        return reject(errors.ERROR_HANDLER(fail));
+      });
+    });
+  };
 
   return Cliente;
 

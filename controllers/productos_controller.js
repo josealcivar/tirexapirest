@@ -10,7 +10,7 @@ let status = require('../response/status');
 
 /**
  * @description: Funcion que sirve para Extraer promocion de productos.
-*               siempre y cuando exista promocion.
+ *               siempre y cuando exista promocion.
  */
 
 const PromocionProductos = () => {

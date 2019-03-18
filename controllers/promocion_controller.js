@@ -69,6 +69,5 @@ const ProductoPromocion = (req, res) => {
 };
 
 module.exports = {
-    ProductosDestacados,
-    ProductosConsultados
+    ProductoPromocion
 }

@@ -8,7 +8,6 @@
 var modelo          = require('../models');
 const sequelize	 		= require('../models/').sequelize;
 
-const bcrypt = require('bcryptjs');
 let status            = require('../response/status');
 const ModeloVendedor	= require('../models/').Vendedor;
 const ModeloEmpresa	= require('../models/').Empresa;
@@ -21,46 +20,41 @@ const ModeloEmpresa	= require('../models/').Empresa;
 
 module.exports.CreateVendedor = async (req, res, next) => {
 
-  let ll_estado = true;
+  
   let ll_empresa = 1;  
   
   let vendedor = {
     codigointerno : req.body.codigointerno,
     nombre        : req.body.nombre,
     email         : req.body.usuario,
-    password      : bcrypt.hashSync(req.body.contrasena),
-    estado        : ll_estado
- 
+    password      : req.body.contrasena,
+    empresa       : ll_empresa,
+    estado        : req.body.estado
     };
 
 	let t = await inicializarTransaccion()
    
   try{
-      const resultado = await ModeloVendedor.verifyRepeatVendedor(vendedor.nombre);
+      const resultado = await ModeloVendedor.verifyRepeatVendedor(vendedor);
       if(resultado.length>0) return status.ERROR_ALLREADYEXIST(res,'Este registro ya existe');
-
       const vendedorCreado = await ModeloVendedor.CreateVendedor(vendedor, t);
       // res.locals.t 				 = t;
       res.locals.idVendedor = vendedorCreado.get('id');
       // next();
       t.commit();
-      
       return status.okCreate(res, 'Vendedor creado correctamente',vendedorCreado.get('nombre'));
-        }catch(fail){
-
+  }catch(fail){
           t.rollback();
-  
 	    	return status.ERROR_SERVIDOR(res, fail);
-        }
-
+  } 
 }
+
  /**
   * @description: Obtiene un vendedor por su usuario
   * @author:  josealcivar
   * @returns: datos del vendedor
   * 
   */
-
 
 module.exports.ObtenercorreoVend = (req, res, next) => {
 
@@ -99,7 +93,7 @@ module.exports.ObtenercorreoVend = (req, res, next) => {
 
 module.exports.BuscarVendedor = async (req, res, next) => {
 
-  let ll_usuario       = req.body.usuario;
+  let ll_usuario  = req.body.usuario;
   
   try{
     const vendedor = await  ModeloVendedor.BuscarUsuario(ll_usuario);
@@ -113,7 +107,40 @@ module.exports.BuscarVendedor = async (req, res, next) => {
  
 };
 
-  
+/**
+ * @description funcion para actualizar datos del usuario
+ * @param {request} req 
+ * @param {response} res 
+ * @author jose alcivar garcia
+ */
+
+module.exports.updateVendedor = async (req,res) => {
+  const ll_vendedorId = req.params.id; // id del cliente a editar
+  const dataVendedor = {
+              codigointerno   : req.body.codigointerno.toUpperCase(),
+              nombre          : req.body.nombre.toUpperCase(),
+              email           : req.body.usuario 
+  };
+  const t = await inicializarTransaccion();
+  try{
+      let repeat = await ModeloVendedor.verifyRepeatVendedor(dataVendedor);
+              if(repeat.length>0){
+                repeat.forEach(element => {
+                    if( element.id!=ll_vendedorId){
+                      return status.ERROR_ALLREADYEXIST(res,'Este registro ya existe');
+                    }    
+                });
+              }
+      const vendedor = await ModeloVendedor.update(dataVendedor,{
+          where : {id: ll_vendedorId}});
+          t.commit();
+          return status.okUpdate(res,'update Successfull', vendedor);
+  }catch(err){
+          t.rollback();
+          return status.errorUpdate(res,'hubo un error', err);
+  }
+}
+
 
 
 
@@ -135,5 +162,5 @@ function inicializarTransaccion(){
 
 // module.exports = {
 //   ObtenercorreoVend,
-//   BuscarVendedor
+//   updateVendedor
 // }

@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www",
     "serve": "node ./bin/www",
     "test": "jest"
+  
   },
   "engines": {
     "node": "8.11.2"

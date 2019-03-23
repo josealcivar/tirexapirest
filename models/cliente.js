@@ -73,12 +73,14 @@ Cliente.createCliente = function(datacliente, transaction){
     return new Promise ((resolve,reject)=> {
       return Cliente.findAll({where:
         {
-            $or:[
+          $or:[
             {
                 razonsocial: ll_razonsocial.toUpperCase()
             }, 
-            {   identificacion:identification
-            }]
+            {  
+               identificacion:identification
+            }
+          ]
          }
         }).then(client=>{
           return resolve(client);

@@ -55,7 +55,6 @@ app.use('/', index);
   parte inicial de la ruta api
 */
 app.use('/api', api_index);
-app.use('/api/services/clientes', clientes);
 app.use('/api/services/empresas', empresas);
 app.use('/api/services/users', users);
 app.use('/api/services/login', apilogin);

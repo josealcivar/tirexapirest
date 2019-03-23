@@ -59,11 +59,33 @@ module.exports = (sequelize, DataTypes) => {
 
 Cliente.createCliente = function(datacliente, transaction){
   return new Promise ((resolve, reject) => {
-    if(!datacliente.identificacion) return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));
+    if(!datacliente.identificacion) return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso identificacion'));
+    if(!datacliente.razonsocial) return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));
     return Cliente.create(datacliente,{transaction}).then(cliente=>{
       return resolve(cliente);}).catch(fail=>{
         return reject(errors.ERROR_HANDLER(fail));
       });
+    });
+  };
+
+  Cliente.verifyRepeatClient = function(ll_razonsocial, identification){
+    
+    return new Promise ((resolve,reject)=> {
+      return Cliente.findAll({where:
+        {
+            $or:[
+            {
+                razonsocial: ll_razonsocial.toUpperCase()
+            }, 
+            {   identificacion:identification
+            }]
+         }
+        }).then(client=>{
+          return resolve(client);
+         }).catch(fail=>{
+          return reject(errors.ERROR_HANDLER(fail));
+         });
+
     });
   };
 

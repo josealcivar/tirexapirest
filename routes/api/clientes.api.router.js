@@ -9,7 +9,7 @@
 /* jshint node: true */
 'use strict';
 
-var controlador = require('../../controllers/controller_clientes');
+var cliente = require('../../controllers/controller_clientes');
 
 var models = require('../../models').Vendedor;
 var express = require('express');
@@ -18,15 +18,15 @@ var router = express.Router();
 //API
 
 /* GET home page. */
-router.get('/all/:vend_id', controlador.GetClientSeller);
+router.get('/all/:vend_id', cliente.GetClientSeller);
 
 /*
 @Descripcion: se obtiene un solo cliente
 */
 
-router.get('/:id', controlador.getClientById);
+router.get('/:id', cliente.getClientById);
 
-router.post('/create', controlador.createClient);
+router.post('/create', cliente.createClient);
 
-
+router.put('/update/:id', cliente.updateClient);
 module.exports = router;

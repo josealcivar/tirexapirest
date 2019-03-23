@@ -13,9 +13,13 @@ let status            = require('../response/status');
 const ModeloVendedor	= require('../models/').Vendedor;
 const ModeloEmpresa	= require('../models/').Empresa;
 
+/**
+ * 
+ * @description funcion para crear un vendedor
+ * @author jose alcivar garcia
+ */
 
-
-module.exports.CreateVendedor = (req, res, next) => {
+module.exports.CreateVendedor = async (req, res, next) => {
 
   let ll_estado = true;
   let ll_empresa = 1;  
@@ -29,28 +33,25 @@ module.exports.CreateVendedor = (req, res, next) => {
  
     };
 
-    
+	let t = await inicializarTransaccion()
+   
+  try{
+      const resultado = await ModeloVendedor.verifyRepeatVendedor(vendedor.nombre);
+      if(resultado.length>0) return status.ERROR_ALLREADYEXIST(res,'Este registro ya existe');
 
-	inicializarTransaccion().then( t => {
-    
-    ModeloVendedor.CreateVendedor(vendedor, t).then(vendedorCreado => {
+      const vendedorCreado = await ModeloVendedor.CreateVendedor(vendedor, t);
       // res.locals.t 				 = t;
-      // res.locals.idVendedor = vendedorCreado.get('id');
-      
+      res.locals.idVendedor = vendedorCreado.get('id');
       // next();
-      //t.commit();
-      console.log("debe crear un registro");
-      console.log(vendedorCreado);
-      return status.okCreate(res, 'Vendedor creado correctamente',vendedorCreado.get('id'));
-        }).catch(fail =>{
-         // t.rollback();
-          
-          return status.error(res,'','', fail);
-      });
+      t.commit();
+      
+      return status.okCreate(res, 'Vendedor creado correctamente',vendedorCreado.get('nombre'));
+        }catch(fail){
 
-	}).catch( fail => {
-		return status.ERROR_SERVIDOR(res, fail);
-	});
+          t.rollback();
+  
+	    	return status.ERROR_SERVIDOR(res, fail);
+        }
 
 }
  /**
@@ -96,29 +97,20 @@ module.exports.ObtenercorreoVend = (req, res, next) => {
   Funcion para verificar si existe un registro con usuario o clave interna
 * */
 
-module.exports.BuscarVendedor = (req, res, next) => {
+module.exports.BuscarVendedor = async (req, res, next) => {
 
-  let ll_usuario       = 'joseandre';//req.body.usuario;
-  let ll_codigointerno = 'QWERTY';//req.body.codigointerno;
+  let ll_usuario       = req.body.usuario;
+  
+  try{
+    const vendedor = await  ModeloVendedor.BuscarUsuario(ll_usuario);
+    if(!vendedor)return status.errorNotFound(res,'data not found');
+    return status.okGet(res, 'Busqueda vendedor exitosa', vendedor);
+  }catch(fail){
 
- ModeloVendedor.BuscarUsuario(ll_usuario, ll_codigointerno).then(success => {
+    return status.ERROR_SERVIDOR(res, fail.errors);
+  }
  
-            if(!success){
-              console.log("debe crear");
-              this.CrearVendedor(req, res, next);
-            }else{
-              inicializarTransaccion().then(t => {
-                return status.okGet(res, 'Busqueda exitosa', t);
-              }).catch(fail => {
-                console.log("errores");
-                return status.ERROR_SERVIDOR(res, fail.errors);
-              });
-          }
-      }).catch(fail => {
-       
-          return status.ERROR_SERVIDOR(res, fail);
-        });
-
+ 
 };
 
   

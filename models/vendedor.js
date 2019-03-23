@@ -41,9 +41,25 @@ module.exports = function(sequelize, DataTypes) {
       
       };
 
-      Vendedor.BuscarUsuario = function(ll_usuario, ll_codigointerno){
+      Vendedor.BuscarUsuario = function(ll_usuario){
         return new Promise((resolve, reject)=>{
-
+          if(!ll_usuario){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));}
+          return Vendedor.findAll(
+            {
+              where:
+              {
+                nombre: 
+                {
+                $like: '%'+ll_razonsocial+'%'
+                        
+                }
+              }
+            }
+            ).then(vendedor=>{
+            return resolve(vendedor);
+          }).catch(err=>{
+            return reject(errors.ERROR_HANDLER(err));
+          });
         });
       };
 
@@ -53,6 +69,18 @@ module.exports = function(sequelize, DataTypes) {
           if(!vendedor.nombre){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));}
           if(!vendedor.email){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso email'));}
           return Vendedor.create(vendedor,transaction).then(vendedor=>{
+            return resolve(vendedor);
+          }).catch(fail=>{
+            return reject(errors.ERROR_HANDLER(fail));
+          });
+        });
+      };
+
+      Vendedor.verifyRepeatVendedor = function(vendedor, codigo){
+        return new Promise((resolve, reject)=>{
+          if(!vendedor){return reject(errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre'));}
+          return Vendedor.findOne({where: {nombre: vendedor}}).then(vendedor=>{
+            if(!vendedor) return reject(vendedor);
             return resolve(vendedor);
           }).catch(fail=>{
             return reject(errors.ERROR_HANDLER(fail));

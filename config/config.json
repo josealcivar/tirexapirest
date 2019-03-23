@@ -5,7 +5,12 @@
     "database": "tirexdb",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "pool": {
+      "max": 100,
+      "min": 0,
+      "acquire": 1000000
+    }
   },
   "test": {
     "username": "root",
@@ -13,7 +18,12 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "pool": {
+      "max": 100,
+      "min": 0,
+      "acquire": 1000000
+    }
   },
   "production": {
     "username": "root",
@@ -21,6 +31,11 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "pool": {
+      "max": 100,
+      "min": 0,
+      "acquire": 1000000
+    }
   }
 }

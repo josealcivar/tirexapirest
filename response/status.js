@@ -45,12 +45,15 @@ module.exports.okUpdate = (res, mensaje, datos) => {
 	});
 };
 
-module.exports.errorUpdate = (res, mensaje) => {
+module.exports.errorUpdate = (res, mensaje, error) => {
 	return res.status(400).json({
 		estado: true,
-		mensaje: mensaje
+		mensaje: mensaje,
+		error: error
 	});
 };
+
+
 
 /*
 	Responde con un estado 403 de acceso restringido
@@ -59,6 +62,14 @@ module.exports.apiAuthError = (res, mensaje) => {
 	return res.status(403).json({
 		estado : false,
 		mensaje : mensaje
+	});
+};
+
+
+module.exports.errorNotFound = (res, mensaje) => {
+	return res.status(404).json({
+		estado: false,
+		mensaje: mensaje
 	});
 };
 
@@ -77,3 +88,11 @@ module.exports.ERROR_SERVIDOR = (res, error) => {
 		error   : error
 	});
 };
+
+module.exports.ERROR_ALLREADYEXIST = (res, error) => {
+	return res.status(302).json({
+		estado  : false,
+		mensaje : 'Error de datos',
+		error   : error
+	});
+}; 

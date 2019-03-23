@@ -48,6 +48,8 @@ const getEmpresaAll = async (req, res, next) => {
  const getEmpresaforId = async (req, res, next) => {
 
     let ll_empresaId = req.params.emp_id;
+    console.log(res.locals);
+    console.log("middleware de empresa id" + res.locals.empresaId);
     try{
         const empresa = await modeloEmpresa.GetEmpresaById(ll_empresaId);
         if(!empresa){return status.error(res, 'no se encontro registro', '', empresa);}   
@@ -67,9 +69,14 @@ const getEmpresaAll = async (req, res, next) => {
         razonsocial: req.body.razonsocial,
         estado: req.body.estado
     };
+    
     try{
         if(!empresaData.razonsocial) throw errors.SEQUELIZE_VALIDATION_ERROR('no ingreso nombre');
         const empresa = await modeloEmpresa.create(empresaData);
+        console.log("id empresa: " + empresa.get('id'));
+        res.locals.empresaId = empresa.get('id');
+        
+   
         return status.okCreate(res,'create Successfull', empresa);
     }catch(fail){
         return status.error(res,'hubo un error en el servicio','', fail);
